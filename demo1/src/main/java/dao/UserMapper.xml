@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="dao.UserMapper">
+    <!--select查询语句-->
+    <!--查询所有用户-->
+    <!--id:就是对应的namespace中接口的方法名
+        resultType:Sql语句执行的返回值
+        parameterType:参数类型
+    -->
+    <select id="getUserList" resultType="pojo.User">
+        select * from user
+    </select>
+
+    <!--按Id查询用户-->
+    <select id="getUserById" parameterType="int" resultType="pojo.User">
+        select * from user where id =#{id}
+    </select>
+    
+    <!--增加一个用户-->
+    <insert id="addUser" parameterType="pojo.User">
+        insert into user  (id,name,password) values(#{id},#{name},#{password})
+    </insert>
+
+    <!--修改用户信息-->
+    <update id="updateUser" parameterType="pojo.User">
+        update user set name=#{name},password=#{password} where id=#{id}
+    </update>
+
+    <!--删除用户信息-->
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id=#{id}
+    </delete>
+
+    <insert id="addUser2" parameterType="map">
+        insert into user (id,name,password) values(#{userid},#{username},#{upassword})
+    </insert>
+</mapper>

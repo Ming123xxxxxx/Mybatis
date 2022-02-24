@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!--核心配置文件-->
+<configuration>
+
+    <!--引入外部配置文件-->
+    <properties resource="db.properties"/>
+    
+    <!--给实体类起别名-->
+<!--    <typeAliases>-->
+<!--        <typeAlias type="pojo.User" alias="User"/>-->
+<!--    </typeAliases>-->
+
+    <!--也可以指定一个包名,MyBatis会在包名下面搜索需要的javaBean
+    比如扫描实体类的包,它的默认别名就为这个类的类名,建议默认别名小写
+    -->
+
+    <typeAliases>
+        <package name="pojo"/>
+    </typeAliases>
+
+    <!--环境配置，连接的数据库，这里使用的是development-->
+    <environments default="development">
+        <environment id="development">
+            <!--指定事务管理的类型，这里简单使用Java的JDBC的提交和回滚设置-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--dataSource 指连接源配置，POOLED是JDBC连接对象的数据源连接池的实现-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"></property>
+                <property name="url" value="${url}"></property>
+                <property name="username" value="${username}"></property>
+                <property name="password" value="${password}"></property>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--每个Mapper.xml都需要在Mybatis核心配置文件中注册-->
+    <mappers>
+        <mapper resource="dao/UserMapper.xml"/>
+    </mappers>
+
+</configuration>

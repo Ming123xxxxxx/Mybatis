@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.UserMapper">
+    <resultMap id="rap" type="User">
+        <result column="password" property="pwd"/>
+    </resultMap>
+
+    <select id="queryAll" resultMap="rap">
+        select * from user
+    </select>
+
+    <insert id="addUser">
+        insert into user (id,name,password) values (#{id},#{name},#{pwd})
+    </insert>
+    
+    <!--实现分页-->
+    <select id="getUserLimit" parameterType="map" resultType="user" resultMap="rap">
+        select * from user limit #{startIndex},#{pageSize}
+    </select>
+
+    <!--使用RowBounds实现分页-->
+    <select id="getUserRowBounds" resultMap="rap">
+        select * from user
+    </select>
+</mapper>
